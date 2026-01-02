@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Apps | AppStore{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/apps.css' %}">
+{% endblock %}
+
+{% block content %}
+<header class="apps-header" id="appsHeader">
+  <div class="header-left">
+    <i class="bi bi-grid"></i>
+    <span>Apps</span>
+  </div>
+
+  <button class="mobile-toggle-btn d-md-none" id="mobileToggle">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <div class="header-right" id="headerRight">
+    <button class="btn btn-outline-primary add-btn" hx-get="{% url 'apps:create' %}" hx-target="#modal-content" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#modal">
+      <i class="fas fa-plus"></i> Apps
+    </button>
+
+    <form class="input-group" id="searchForm">
+      <input type="text" class="form-control" placeholder="Search apps..." />
+      <button type="submit" class="btn btn-primary"><i class="fas fa-search fa-2x"></i></button>
+    </form>
+  </div>
+</header>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white d-none d-lg-block nav-2">
+  <!-- Container wrapper -->
+  <div class="container-fluid justify-content-center justify-content-md-between">
+    <!-- Left elements -->
+    <div class="d-flex align-items-center">
+      <a class="btn btn-sweep btn-outline-primary me-1" href="{% url 'apps:category_list' %}">
+        <i class="bi-grid-fill me-1"></i>Categories
+      </a>
+      <a class="btn btn-sweep btn-outline-primary me-1" href="{% url 'apps:app_list' %}">
+        <i class="fas fa-layer-group me-1"></i>Apps
+      </a>
+      <a class="btn btn-sweep btn-outline-primary me-1" href="{% url 'apps:price_list' %}">
+        <i class="fas fa-tags me-1"></i>Price
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row my-3">
+    <h3 class="title text-center">Your Cards</h3>
+  </div>
+</div>
+<!-- Apps cards -->
+<div class="apps-container">
+  {% for app in apps %}
+  <div class="app-card">
+    <div class="app-card-header d-flex">
+      <div class="left">
+        <span class="status status-{{ app.status }}">{{ app.get_status_display }}</span>
+      </div>
+      <div class="right d-flex">
+        <button class="btn btn-outline-info" hx-get="{% url 'apps:edit' app.id %}" hx-target="#modal-content" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#modal">
+          <i class="fas fa-edit"></i>
+        </button>
+        <a class="btn btn-outline-danger" href="{% url 'apps:delete' app.id %}">
+          <i class="fas fa-trash"></i>
+        </a>
+      </div>
+    </div>
+    {% if app.icon %}
+      <img src="{{ app.icon.url }}" class="app-icon" loading="lazy" />
+    {% elif app.icon_url %}
+      <img src="{{ app.icon_url }}" class="app-icon" loading="lazy" />
+    {% else %}
+      <div class="app-icon"></div>
+    {% endif %}
+    <div class="app-card-body">
+      <h5>{{ app.name }}</h5>
+      <p class="subtitle mb-0">{{ app.use|truncatewords:3 }}</p>
+      <div class="breadcrumb to-folder mt-2" style="line-height: 1;">
+        <i class="fas fa-folder me-1"></i> Apps
+        {% if app.sub_folder %}
+          / {{ app.sub_folder.folder.title }}
+          / {{ app.sub_folder.title }}
+        {% elif app.folders.exists %}
+          / {{ app.folders.first.title }}
+        {% else %}
+          / Other
+        {% endif %}
+      </div>
+    </div>
+    <div class="categories" tabindex="1">
+      {% for category in app.categories.all %}
+        <a href="{% url 'apps:category_detail' category.slug %}" class="badge d-flex align-items-center p-1 pe-2 text-success-emphasis bg-success-subtle border border-success-subtle rounded-pill">
+          {% if category.icon %}
+            <img src="{{ category.icon.url }}" class="category-icon rounded-circle me-1" width="24" height="24" loading="lazy" /> {{ category.name }}
+          {% elif category.icon_url %}
+            <img src="{{ category.icon_url }}" class="category-icon rounded-circle me-1" width="24" height="24" loading="lazy" /> {{ category.name }}
+          {% elif category.icon_font %}
+            <i class="{{ category.icon_font}} rounded-circle me-1"></i> {{ category.name }}
+          {% else %}
+            {{ category.name }}
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+    <div class="card-action">
+      <a class="btn btn-primary" href="{% url 'apps:view' app.id %}">View App</a>
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-muted-soft">No apps found.</p>
+  {% endfor %}
+</div>
+
+<!-- Pagination -->
+<nav>
+  <ul class="pagination justify-content-center pagination-lg">
+    {% if apps.has_previous %}
+      <li class="page-item">
+        <a href="?page={{ apps.previous_page_number }}" class="page-link" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-offset="0,7" title="Previous">
+          <i class="bi bi-chevron-double-left"></i>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link">
+          <i class="bi bi-chevron-double-left"></i>
+        </a>
+      </li>
+    {% endif %}
+
+    {% for num in apps.paginator.page_range %}
+      {% if apps.number == num %}
+        <li class="page-item active">
+          <a href="?page={{ num }}" class="page-link ">{{ num }}</a>
+        </li>
+      {% else %}
+        <li class="page-item">
+          <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if apps.has_next %}
+      <li class="page-item">
+        <a href="?page={{ apps.next_page_number }}" class="page-link" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-offset="0,7" title="Next">
+          <i class="bi bi-chevron-double-right"></i>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" disabled="True">
+          <i class="bi bi-chevron-double-right"></i>
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}
+
+{% block extra_js %}
+<script defr src="{% static 'apps/apps.js' %}"></script>
+{% endblock %}

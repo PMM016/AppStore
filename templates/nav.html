@@ -1,0 +1,62 @@
+{% load static %}
+<nav class="aside-nav">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+
+  <!-- LOGO -->
+  <div class="nav-section mb-3">
+    <div class="logo" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-offset="0,7" title="AppStore">
+      <i class="bi bi-box"></i>
+    </div>
+  </div>
+
+  <hr class="w-75 text-secondary">
+
+  <!-- MAIN NAV -->
+  <div class="nav-section flex-grow-1">
+    <a href="/" class="nav-item {% if request.path == '/' %}active{% endif %}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-offset="0,7" title="Home">
+      <i class="bi bi-house"></i>Home
+    </a>
+
+    <a href="{% url 'apps:index' %}" class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-offset="0,7" title="Apps">
+      <i class="bi bi-grid"></i>Apps
+    </a>
+
+    <a href="{ url 'apis:index' }" class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-offset="0,7" title="Api's">
+      <i class="bi bi-key"></i>Api's
+    </a>
+
+    <a href="{ url 'passwords:index' }" class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-offset="0,7" title="Passwords">
+      <i class="bi bi-shield-lock"></i>Pass
+    </a>
+
+    <a href="{ url 'sites:index' }" class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-offset="0,7" title="Sites">
+      <i class="bi bi-globe"></i>Sites
+    </a>
+
+    <a href="{{% url 'accounts:view_account' %}" class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-offset="0,7" title="Account">
+      <i class="bi bi-person"></i>Account
+    </a>
+  </div>
+
+  <hr class="w-75 text-secondary">
+
+  <!-- PROFILE DROPDOWN -->
+  <div class="nav-section dropup">
+    <img 
+      src="{{ request.user.account.profile_pic.url }}" 
+      class="profile-pic dropdown-toggle"
+      data-bs-toggle="dropdown"
+      title="{{ request.user.account.display_name }}"
+    >
+
+    <ul class="dropdown-menu text-center">
+      <li class="dropdown-header">{{ account.display_name }}</li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <a class="dropdown-item text-danger" href="{% url 'accounts:logout' %}">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

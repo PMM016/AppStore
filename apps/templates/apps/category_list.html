@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Categories | Apps{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/apps.css' %}">
+<link rel="stylesheet" href="{% static 'apps/categories.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<header class="apps-header" id="appsHeader">
+  <div class="header-left">
+    <i class="bi bi-grid"></i>
+    <span>Apps</span>
+  </div>
+
+  <button class="mobile-toggle-btn d-md-none" id="mobileToggle">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <div class="header-right" id="headerRight">
+    <button class="btn btn-outline-primary add-btn">
+      <i class="fas fa-plus"></i> Categories
+    </button>
+
+    <form class="input-group" id="searchForm">
+      <input type="text" class="form-control" placeholder="Search Categories..." />
+      <button type="submit" class="btn btn-primary"><i class="fas fa-search fa-2x"></i></button>
+    </form>
+  </div>
+</header>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<div class="nav-crumb">
+  <a class="btn btn-outline-secondary outlined" href="{% url 'back' %}">
+    <i class="fa fa-chevron-left"></i> <span>Go Back</span> 
+  </a>
+</div>
+
+<div class="container">
+  <div class="row my-3">
+    <h3 class="title text-center">There are {{ count }} Categories</h3>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row categories-cont">
+    {% for category in categories %}
+      <div class="category-item">
+        <div class="content-category">
+          <h3 class="subtitle">{{ category.name }}</h3>
+          <a class="streched link" href="{% url 'apps:category_detail' category.slug %}">
+            <i class="fa fa-chevron-right"></i>
+          </a>
+        </div>
+        <div class="category-icon">
+          {% if category.icon %}
+            <img src="{{ category.icon.url }}" class="img-fluid" loading="lazy" />
+          {% elif category.icon_url %}
+            <img src="{{ category.icon_url }}" class="img-fluid" loading="lazy" />
+          {% elif category.icon_font %}
+            <i class="{{ category.icon_font }} rounded-circle me-1"></i> 
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

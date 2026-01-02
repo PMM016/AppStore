@@ -1,0 +1,66 @@
+:root {
+    --bg-dark-1: #000000; 
+    --bg-white-1: #ffffff; 
+
+    --hover-1: #f8f9fa;
+
+    --text-light: #0F172A;
+    --text-muted-light: #64748B;
+    --text-dark: #E5E7EB;
+    --text-muted-dark: #94A3B8;
+
+}
+
+[data-bs-theme="dark"]{
+    --bg-white-1: #000000; 
+    --bg-dark-1: #ffffff; 
+
+    --hover-1: #6c757d;
+
+    --text-dark: #0F172A;
+    --text-muted-dark: #64748B;
+    --text-light: #E5E7EB;
+    --text-muted-light: #94A3B8;
+}
+
+.nav-crumb {
+    position: fixed;
+    top: 1rem;
+    left: calc(var(--aside-width));
+    padding: 1rem 0;
+    margin: 0 2rem;
+    z-index: 10;
+}
+
+@media screen and (max-width: 800px) {
+    main {
+        padding-top: 100px
+    }
+
+    .layout {
+        margin-left: calc(var(--aside-width) - 0px);
+    }
+
+    .nav-crumb {
+        left: calc(var(--aside-width) - 10px);
+        width: 100% !important;
+        top: 0;
+        background-color: var(--bg-white-1);
+    }
+
+    .col-0 {
+        flex: 0 0 0;
+        width: 0;
+        display: none;
+    }
+
+    .cent-padd {
+        padding-left: 2rem;
+        margin-left: 4rem;
+    }
+
+    .pag-bottom {
+        margin-left: 0.5rem;
+        width: calc(100% - 2rem)
+    }
+}

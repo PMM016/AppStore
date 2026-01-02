@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Delete App{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'apps/apps_detail.css' %}">
+  <link rel="stylesheet" href="{% static 'css/apps.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5" id="delete-app">
+  <div class="card glass">
+    <div class="card-body text-center">
+      {% if app.icon %}
+        <img src="{{ app.icon.url }}" class="app-icon" loading="lazy" style="max-height: 180px;"/>
+      {% elif app.icon_url %}
+        <img src="{{ app.icon_url }}" class="app-icon" loading="lazy" style="max-height: 180px;" />
+      {% endif %}
+      <h4 class="my-3">
+        <i class="fas fa-trsh"></i>Delete "{{ app.name }}"?
+      </h4>
+      <p class="text-muted">This action cannot be undone.</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger outlined btn-sweep">Yes, Delete</button>
+        <a href="{% url 'apps:view' app.id %}" class="btn btn-outline-info outlined ms-2 btn-sweep">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

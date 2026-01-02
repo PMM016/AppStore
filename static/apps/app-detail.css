@@ -1,0 +1,133 @@
+:root {
+	--dark-1: #0F172A;   
+	--dark-2: #1E293B;   
+	--dark-3: #282828bf;
+	--dark-4: #808080;
+	--white-1: #FFFFFF;   
+	--white-2: #F5F7FA; 
+	--white-3: #fafafa;
+	--white-4: #ebebeb;
+
+	--hover-1: #f8f9fa;
+
+	--text-light: #0F172A;
+	--text-muted-light: #64748B;
+	--text-dark: #E5E7EB;
+	--text-muted-dark: #94A3B8;
+
+}
+
+[data-bs-theme="dark"]{
+	--white-1: #0F172A;   
+	--white-2: #1E293B;   
+	--white-3: #282828bf;
+	--white-4: #808080;
+	--dark-1: #FFFFFF;   
+	--dark-2: #F5F7FA; 
+	--dark-3: #fafafa;
+	--dark-4: #ebebeb;
+
+	--hover-1: #6c757d;
+
+	--text-dark: #0F172A;
+	--text-muted-dark: #64748B;
+	--text-light: #E5E7EB;
+	--text-muted-light: #94A3B8;
+}
+
+.app-title {
+	background-color: var(--white-2);
+}
+
+.sub-folder {
+	font-size: 1.2rem;
+	line-height: 1;
+}
+
+.app-body {
+	background-color: var(--white-1);
+}
+
+.app-body, #delete-app {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.app-body [class*="btn-outline"] {
+    border-width: 2px !important;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 700;        
+}
+
+.app-body [class*="btn-outline"]:hover {
+    background-color: transparent !important;
+    color: var(--bs-btn-color) !important;
+}
+
+.list-title {
+	font-family: 'Nunito';
+	font-size: 1.2rem;
+	font-weight: 700;
+}
+
+.list {
+    list-style-type: none;
+    padding: 0;
+  }	
+
+.list li::before {
+	font-family: 'bootstrap-icons';
+	content: "\F28A ";
+	font-size: 0.8rem;
+	margin-right: 1rem;
+}
+
+.pag-bottom {
+	display: flex;
+	background-color: var(--white-3);
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.pag-bottom div {
+	padding: 1rem 1.5rem;
+	align-items: center;
+	gap: 1rem;
+	font-size: 1.5rem;
+	background-color: var(--white-4);
+	color: var(--dark-1);
+	border-radius: 10px;
+	width: auto;
+	cursor: pointer;
+}
+
+.pag-bottom div:hover {
+	background-color: var(--hover-1);
+}
+
+.status {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;    
+}
+
+.status.status-working {
+    color: #fff;
+    background: #198754;
+}
+
+.status.status-need_key {
+    color: #fff;
+    background: #ffc107;
+}
+
+.status.status-not_installed {
+    color: #fff;
+    background: #dc3545;
+}
+
+.size-2 {
+	font-size: 1.3rem;
+}

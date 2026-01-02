@@ -1,0 +1,307 @@
+.apps-header {
+    display: flex;
+    width: 100% !important;
+    flex: 0 0 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white-bg-1);
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 1rem 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.apps-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--bd-1)
+}
+
+.apps-header.scrolled {
+    box-shadow: 0 0 20px 0px;
+}
+
+.header-left {
+    font-size: 1.7rem;
+    font-family: "Nunito";
+}
+
+.header-right {
+    position: relative;
+}
+
+.header-right .add-btn {
+    position: absolute;
+    top: 0;
+    left: -200%;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-family: "Ubuntu";
+}
+
+.header-right .add-btn {
+    font-size: 1.5rem;
+}
+/* =========================
+   Apps index cards
+   ========================= */
+.apps-container {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.app-card {
+    flex: 0 0 auto;
+    width: calc(100% / 4 - 10px);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow-soft);
+    padding: 0.5rem;
+    overflow: hidden;
+    min-height: 250px;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.app-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 10px -10px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.app-card-header {
+    flex: 0 0 100%;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    position: relative;
+}
+
+.app-card-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--bd-1);
+}
+
+.app-card-header .left {
+    font-size: 1.3rem;
+}
+
+/* Status badges */
+.status {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;    
+}
+
+.status.status-working {
+    color: #fff;
+    background: #198754;
+}
+
+.status.status-need_key {
+    color: #fff;
+    background: #ffc107;
+}
+
+.status.status-not_installed {
+    color: #fff;
+    background: #dc3545;
+}
+
+.app-card-header .right {
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    font-size: 1.2rem;
+}
+
+.app-card img.app-icon {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+    background: var(--color-bg-soft);
+}
+
+.app-card-body {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 0 0 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
+.app-card-body h5 {
+    font-family: var(--font-title);
+    font-size: var(--fs-subtitle);
+    margin: 0;
+}
+
+.to-folder {
+    align-items: center;
+    justify-content: start;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.app-card-body .categories {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.app-card-body .description {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;   /* adjust */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-action {
+    position: absolute;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.35s ease;
+    opacity: 0;
+}
+
+.app-card:hover::after {
+    content: '';
+    position: absolute;
+    top: 70px;
+    left: 0;
+    height: 277px;
+    width: 100%;
+    border-radius: 1rem;
+    z-index: 10;
+    background-color: rgba(var(--bs-dark-rgb), 0.1);
+} 
+
+.app-card:hover .card-action {
+    top: 40%;
+    z-index: 20;
+    opacity: 1;
+}
+
+.categories {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+}
+
+.categories::-webkit-scrollbar {
+    display: none;
+}
+
+#searchForm {
+    max-width: 220px;
+}
+
+#searchForm input {
+    font-size: 1.25rem;
+}
+
+#searchForm .btn i {
+    font-size: 1.5rem;
+}
+
+.mobile-toggle-btn{
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: none;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-2 {
+    font-family: 'Ubuntu';
+}
+
+.nav-2 [class*="btn-outline"] {
+    border-width: 2px !important;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 700;        
+}
+
+.nav-2 [class*="btn-outline"]:hover {
+    background-color: transparent !important;
+    color: var(--bs-btn-color) !important;
+}
+
+/* Responsive nes */
+@media screen and (max-width: 1100px) {
+    .app-card {
+        flex: 0 0 auto;
+        width: calc(100% / 3 - 10px);
+    }
+
+    .header-right .add-btn {
+        left: -150%;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .apps-container {
+        gap: 5px;
+    }
+    .app-card {
+        flex: 0 0 auto;
+        width: calc(100% / 2 - 5px);
+    }
+
+    .mobile-toggle-btn {
+        display: block;
+    }
+    
+    .header-right {
+        display: none;
+    }
+    
+    .header-right .add-btn {
+       position: relative;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .apps-container {
+        gap: 0;
+    }
+    .app-card {
+        flex: 0 0 auto;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+

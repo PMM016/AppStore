@@ -1,0 +1,33 @@
+{% extends "accounts/base_accounts.html" %}
+{% load static %}
+
+{% block title %}{{ account.display_name }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-6" data-aos="zoom-in">
+    <div class="glass-card p-4 text-center">
+      {% if account.profile_pic %}
+        <img src="{{ account.profile_pic.url }}" class="avatar mb-3">
+      {% else %}
+        <div class="avatar mb-3 d-flex align-items-center justify-content-center bg-secondary">
+          <i class="bi bi-person fs-1"></i>
+        </div>
+      {% endif %}
+      <h3 class="brand mb-1">{{ account.display_name }}</h3>
+      <p class="text-white-50 mb-3">@{{ account.user.username }}</p>
+      <hr class="border-light">
+      <div class="row text-start">
+        <div class="col-6">
+          <small class="text-white-50">Date of Birth</small>
+          <p>{{ account.dob }}</p>
+        </div>
+        <div class="col-6">
+          <small class="text-white-50">Account ID</small>
+          <p>#{{ account.id }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
